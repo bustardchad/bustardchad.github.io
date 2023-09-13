@@ -1,0 +1,39 @@
+---
+title: "About Me"
+image: Headshot_at_KITP.JPG
+about:
+  template: solana
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/chad-bustard-phd-20628090/
+    - icon: github
+      text: Github
+      href: https://github.com/bustardchad
+    - icon: files
+      href: https://ui.adsabs.harvard.edu/search/fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq_database=database%3A%20(astronomy%20OR%20physics)&q=author%3A(%22Bustard%2C%20Chad%22)&sort=citation_count%20desc%2C%20bibcode%20desc&p_=0  
+      text: Publications
+    - icon: envelope
+      href: mailto:bustardchad@gmail.com
+      text: Email
+
+--- 
+
+Chad Bustard is a data enthusiast and machine learning practicioner leveraging large-scale simulations,
+ Python-based data analysis, and a start-up mindset to solve novel problems in astrophysics. He's now adapting and 
+ growing his technical skillset to tackle climate change.  
+
+## Education
+
+University of Wisconsin-Madison | PhD in Physics | June 2014 - August 2020
+
+Rice University | B.S. in Astrophysics, B.A. in Mathematics | August 2009 - May 2013
+
+## Experience
+
+Climatebase | Climatebase Fellow (Cohort 4) | September 2023 - present
+
+Kavli Institute for Theoretical Physics | Postdoctoral Fellow | September 2020 - September 2023
+
+University of Wisconsin - Madison | NSF Graduate Fellow | June 2014 - August 2020
+
