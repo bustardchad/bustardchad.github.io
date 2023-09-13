@@ -4,21 +4,7 @@
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "Chad Bustard is a data enthusiast and machine learning practicioner leveraging large-scale simulations, Python-based data analysis, and a start-up mindset to solve novel problems in astrophysics. He’s now adapting and growing his technical skillset to tackle climate change."
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "About Me",
-    "section": "Education",
-    "text": "Education\nUniversity of Wisconsin-Madison | PhD in Physics | June 2014 - August 2020\nRice University | B.S. in Astrophysics, B.A. in Mathematics | August 2009 - May 2013"
-  },
-  {
-    "objectID": "about.html#experience",
-    "href": "about.html#experience",
-    "title": "About Me",
-    "section": "Experience",
-    "text": "Experience\nClimatebase | Climatebase Fellow (Cohort 4) | September 2023 - present\nKavli Institute for Theoretical Physics | Postdoctoral Fellow | September 2020 - September 2023\nUniversity of Wisconsin - Madison | NSF Graduate Fellow | June 2014 - August 2020"
+    "text": "Hi! My name is Chad Bustard. I’m a data enthusiast and machine learning practicioner leveraging large-scale simulations, Python-based data analysis, and a start-up mindset to solve novel problems in astrophysics. I’m now adapting and growing my skillset to tackle problems a bit closer to home, and I envision this blog as a medium for communicating new independent projects, as well as some data-intensive work from my academic life.\nIf you have any thoughts or comments on my work, please don’t hesitate to contact me!"
   },
   {
     "objectID": "posts/LMC_Part1/index.html",
@@ -100,9 +86,9 @@
   {
     "objectID": "resume.html",
     "href": "resume.html",
-    "title": "Resume",
+    "title": "Resume/CV",
     "section": "",
-    "text": "Download current CV"
+    "text": "Download current resume"
   },
   {
     "objectID": "posts/welcome/index.html",
