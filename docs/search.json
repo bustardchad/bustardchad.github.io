@@ -2,21 +2,21 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "Chad Bustard",
+    "title": "About Me",
     "section": "",
     "text": "Chad Bustard is a data enthusiast and machine learning practicioner leveraging large-scale simulations, Python-based data analysis, and a start-up mindset to solve novel problems in astrophysics. He’s now adapting and growing his technical skillset to tackle climate change."
   },
   {
     "objectID": "about.html#education",
     "href": "about.html#education",
-    "title": "Chad Bustard",
+    "title": "About Me",
     "section": "Education",
     "text": "Education\nUniversity of Wisconsin-Madison | PhD in Physics | June 2014 - August 2020\nRice University | B.S. in Astrophysics, B.A. in Mathematics | August 2009 - May 2013"
   },
   {
     "objectID": "about.html#experience",
     "href": "about.html#experience",
-    "title": "Chad Bustard",
+    "title": "About Me",
     "section": "Experience",
     "text": "Experience\nClimatebase | Climatebase Fellow (Cohort 4) | September 2023 - present\nKavli Institute for Theoretical Physics | Postdoctoral Fellow | September 2020 - September 2023\nUniversity of Wisconsin - Madison | NSF Graduate Fellow | June 2014 - August 2020"
   },
@@ -98,6 +98,13 @@
     "text": "Reading in sightlines\nWe read in sightlines from a pre-made CSV file that provides RA, DEC coordinates for each one\n\n# Read in table of (RA, DEC) values for sightlines through the LMC\ninputArr = np.genfromtxt('LMC_high_mass/ullyses_lmc_dr5_chadedits.csv',delimiter=',',invalid_raise=False)\nra_data = inputArr[:,0]\nra_data = ra_data[1:len(ra_data)]\ndec_data = inputArr[:,1]\ndec_data = dec_data[1:len(dec_data)]\n\nLet’s take a quick look at the file header for the ram pressure FITS file we created. It shows the “World Coordinate System (WCS)” keywords, including the type of axes we are using (RA–TAN and DEC–TAN) and the number of points along each axis (512 x 512)\n\nf = fits.open(\"LMC_ram_RP_rotate.fits\")\nw = wcs.WCS(f[0].header)\nprint(w)\n\nWCS Keywords\n\nNumber of WCS axes: 2\nCTYPE : 'RA---TAN'  'DEC--TAN'  \nCRVAL : 79.0  -68.68  \nCRPIX : 256.5  256.5  \nPC1_1 PC1_2  : 1.0  0.0  \nPC2_1 PC2_2  : 0.0  1.0  \nCDELT : -0.0447451171875  0.0447451171875  \nNAXIS : 512  512\n\n\nWe’ll make use of Astropy’s built-in transformations to map from world coordinates to pixel coordinates. That way we can figure out where each sightline, given to us in world coordinates, lies on our simulation grid: https://python4astronomers.github.io/astropy/wcs.html\n\n# convert from world to pixel coords\nra_test, dec_test = w.wcs_world2pix(ra_data, dec_data, 1)\n\n# Make some quick plots \nplt.plot(ra_data,ra_test)\nplt.xlabel(\"RA Inputs\")\nplt.ylabel(\"Pixel Outputs\")\nplt.show()\n\nplt.plot(dec_data,dec_test)\nplt.xlabel(\"DEC Inputs\")\nplt.ylabel(\"Pixel Outputs\")\nplt.show()\n\n\n\n\n\n\n\n\n# access the ram pressure values from ramPres_rot file\nram_arr = f[\"ramPres_rot\"].data\n\nrp_pixel_coords = []\nfor j in range(0,len(ra_data)):\n    ra, dec = w.wcs_world2pix(ra_data[j], dec_data[j], 1)\n    \n    # \n    ra = int(ra)\n    dec = int(dec)\n    rp_pixel_coords.append(ram_arr[dec,ra])\n\n\n# Open the CSV file using Pandas, call it df\ndf = pd.read_csv('LMC_high_mass/ullyses_lmc_dr5_chadedits.csv')\n\n# Add a column for RP -- units are dyne/cm^2\ndf['RP(dyne/cm^2)'] = rp_pixel_coords\n\n# Print the new dataframe df\nprint(df)\n \n# Plot the sightlines in RA, DEC coordinates, with color = ram pressure magnitude    \nsc = plt.scatter(ra_data,dec_data, c = rp_pixel_coords,cmap=\"Greens\")\nplt.colorbar(sc)\nplt.title(\"Ram Pressure (Rotation Included)\")\nplt.gca().invert_xaxis()\nplt.xlabel(\"RA (ICRS)\",fontsize=16)\nplt.ylabel(\"DEC (ICRS)\",fontsize=16)\nplt.tight_layout()\nplt.show()\n \n# Write df (with appended column for RP values) to a new CSV file \ndf.to_csv('RP_Rotation_dr5_Sept2022.csv')\n\n     RA(deg)  Dec(deg)  Unnamed: 2  RP(dyne/cm^2)\n0    71.7686  -67.1148         NaN   1.402618e-13\n1    72.5789  -67.6606         NaN   1.505098e-13\n2    73.4304  -68.7148         NaN   1.813268e-13\n3    73.6329  -67.2568         NaN   1.490383e-13\n4    73.7390  -70.0412         NaN   2.281196e-13\n..       ...       ...         ...            ...\n105  85.7289  -68.9485         NaN   2.372947e-13\n106  85.8042  -67.8544         NaN   2.204783e-13\n107  86.0963  -67.2414         NaN   2.106828e-13\n108  86.4664  -67.2405         NaN   2.117671e-13\n109  87.2069  -70.0661         NaN   2.493760e-13\n\n[110 rows x 4 columns]"
   },
   {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Resume",
+    "section": "",
+    "text": "Download current CV"
+  },
+  {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
     "title": "From Galaxy Atmospheres to Saving Earth’s Atmosphere",
@@ -107,8 +114,8 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "From Galaxy Atmospheres to Saving Earth’s Atmosphere",
+    "title": "My Blog",
     "section": "",
-    "text": "LMC Analysis: Part I\n\n\n\n\n\n\n\n\n\n\n\n\nChad Bustard\n\n\n\n\n\n\n  \n\n\n\n\nLMC Analysis: Part II\n\n\n\n\n\n\n\nPython\n\n\ndata analysis\n\n\n\n\n\n\n\n\n\n\n\nSep 12, 2023\n\n\n\n\n\n\n  \n\n\n\n\nFrom Galaxy Atmospheres to Saving Earth’s Atmosphere\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nSep 8, 2023\n\n\nChad Bustard\n\n\n\n\n\n\nNo matching items"
+    "text": "Data Analysis and Visualization for Astrophysics Research: Part II\n\n\n\n\n\n\n\nPython\n\n\ndata analysis\n\n\n\n\n\n\n\n\n\n\n\nSep 12, 2023\n\n\n\n\n\n\n  \n\n\n\n\nData Analysis and Visualization for Astrophysics Research: Part I\n\n\n\n\n\n\n\nPython\n\n\ndata analysis\n\n\n\n\n\n\n\n\n\n\n\nSep 10, 2023\n\n\nChad Bustard\n\n\n\n\n\n\n  \n\n\n\n\nFrom Galaxy Atmospheres to Saving Earth’s Atmosphere\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nSep 8, 2023\n\n\nChad Bustard\n\n\n\n\n\n\nNo matching items"
   }
 ]
