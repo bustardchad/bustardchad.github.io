@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Chad Bustard">
+<meta name="dcterms.date" content="2023-09-14">
 
-<title>Chad Bustard - My Blog</title>
+<title>Chad Bustard - Code Timing and Scaling on Distributed Clusters</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,50 +61,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Chad Bustard</span>
     </a>
   </div>
@@ -115,11 +84,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
+    <a class="nav-link" href="../../about.html" rel="" target="">
  <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Bustard_Resume.pdf" rel="" target=""><i class="bi bi-file-text" role="img">
+    <a class="nav-link" href="../../Bustard_Resume.pdf" rel="" target=""><i class="bi bi-file-text" role="img">
 </i> 
  <span class="menu-text">Resume/CV</span></a>
   </li>  
@@ -153,186 +122,83 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">My Blog</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Code Timing and Scaling on Distributed Clusters</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Distributed Computing</div>
+              </div>
+                  </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Chad Bustard </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 14, 2023</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Distributed Computing">Distributed Computing <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="data analysis">data analysis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
+<p>For the past 5 years, I’ve been the principal investigator (PI) on multiple supercomputing allocations, totalling over 15 million CPU hours of compute time. This means I’ve written project scoping proposals and renewal proposals, demonstrating the usefulness of our team’s science to broader National Science Foundation initiatives and also demonstrating the efficiency (for instance, as the number of processors or the simulation memory requirements vary) of our modified C++ and Fortran codes on national supercomputers similar to the Exascale Frontier cluster shown below.</p>
+<p><img src="frontera.jpg" class="img-fluid"></p>
+<p>Since this process is where research begins, I wanted to share the scaling and timing portion of my most recent proposal below. When I wrote my first proposal in 2018, I struggled to find similar examples online, so I hope this blog post benefits someone out there. If you find this useful, please share it widely, and reach out if you have questions!</p>
+<p>Next up will be a blog post focused on the scientific results from this project!</p>
+<div class="cell">
+<style type="text/css">
+.embed-container {
+    position: relative;
+    padding-bottom: 100%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+</style>
+</div>
+<p class="text-center">
+  <a class="btn btn-primary btn-lg cv-download" href="XSEDE_Scaling_Timing_2022.pdf" target="_blank">
+    <i class="fa-solid fa-file-arrow-down"></i> Download scaling and timing document
+  </a>
+</p>
+
+<div class="embed-container">
+  <iframe src="XSEDE_Scaling_Timing_2022.pdf" style="border: 0.5px"></iframe>
+</div>
 
 
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Distributed Computing" data-listing-date-sort="1694667600000" data-listing-file-modified-sort="1694723920290" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
-<div class="thumbnail">
-<p><a href="./posts/code_timing/index.html"> <p class="card-img-top"><img src="posts/code_timing/frontera.jpg"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/code_timing/index.html">
-<h3 class="no-anchor listing-title">
-Code Timing and Scaling on Distributed Clusters
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Distributed Computing'); return false;">
-Distributed Computing
-</div>
-</div>
-<a href="./posts/code_timing/index.html">
-<div class="listing-description">
-For the past 5 years, I’ve been the principal investigator (PI) on multiple supercomputing allocations, totalling over 15 million CPU hours of compute time. This means I’ve…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/code_timing/index.html">
-<div class="listing-date">
-Sep 14, 2023
-</div>
-<div class="listing-author">
-Chad Bustard
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Python,data analysis" data-listing-date-sort="1694494800000" data-listing-file-modified-sort="1694616201945" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13">
-<div class="thumbnail">
-<p><a href="./posts/LMC_Part2/LMC_Part2.html"> <p class="card-img-top"><img src="posts/LMC_Part2/RP_vs_SFR.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/LMC_Part2/LMC_Part2.html">
-<h3 class="no-anchor listing-title">
-Data Analysis and Visualization for Astrophysics Research: Part II
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('data analysis'); return false;">
-data analysis
-</div>
-</div>
-<a href="./posts/LMC_Part2/LMC_Part2.html">
-<div class="listing-description">
-In this post, we’ll continue to analyze simulations of the Large Magellanic Cloud, but this time, folding in some real observational data obtained by my collaborators Yong…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/LMC_Part2/LMC_Part2.html">
-<div class="listing-date">
-Sep 12, 2023
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Python,data analysis" data-listing-date-sort="1694322000000" data-listing-file-modified-sort="1694616409340" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="37">
-<div class="thumbnail">
-<p><a href="./posts/LMC_Part1/index.html"> <p class="card-img-top"><img src="posts/LMC_Part1/LMC_EdgeOn.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/LMC_Part1/index.html">
-<h3 class="no-anchor listing-title">
-Data Analysis and Visualization for Astrophysics Research: Part I
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('data analysis'); return false;">
-data analysis
-</div>
-</div>
-<a href="./posts/LMC_Part1/index.html">
-<div class="listing-description">
-In this tutorial post, I’ll show how to use Python-based data analysis and visualization tools to carry out exploratory and diagnostic data analysis of astrophysics…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/LMC_Part1/index.html">
-<div class="listing-date">
-Sep 10, 2023
-</div>
-<div class="listing-author">
-Chad Bustard
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="news" data-listing-date-sort="1694149200000" data-listing-file-modified-sort="1694466402552" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html"> <p class="card-img-top"><img src="posts/welcome/thumbnail.jpg"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/welcome/index.html">
-<h3 class="no-anchor listing-title">
-From Galaxy Atmospheres to Saving Earth’s Atmosphere
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<a href="./posts/welcome/index.html">
-<div class="listing-description">
-Announcing a series of blog posts spanning machine learning, climate science, galactic winds, and cosmic rays!
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html">
-<div class="listing-date">
-Sep 8, 2023
-</div>
-<div class="listing-author">
-Chad Bustard
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
