@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Chad Bustard - My Blog</title>
+<title>Chad Bustard - About Me</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,12 +30,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -61,43 +58,12 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -115,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
+    <a class="nav-link active" href="./about.html" rel="" target="" aria-current="page">
  <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
@@ -151,209 +117,51 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">My Blog</h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Distributed Computing">Distributed Computing <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="data analysis">data analysis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<div class="quarto-about-solana column-body">
+  <div class="about-entity">
+    <div class="entity-contents">
+      <header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">About Me</h1>
+</div>
+<div class="quarto-title-meta">
+  </div>
+</header> <div class="about-links">
+  <a href="https://www.linkedin.com/in/chad-bustard-phd-20628090/" class="about-link" rel="" target="">
+    <i class="bi bi-linkedin"></i>
+     <span class="about-link-text">LinkedIn</span>
+  </a>
+  <a href="https://github.com/bustardchad" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">Github</span>
+  </a>
+  <a href="https://ui.adsabs.harvard.edu/search/fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&amp;fq_database=database%3A%20(astronomy%20OR%20physics)&amp;q=author%3A(%22Bustard%2C%20Chad%22)&amp;sort=citation_count%20desc%2C%20bibcode%20desc&amp;p_=0" class="about-link" rel="" target="">
+    <i class="bi bi-files"></i>
+     <span class="about-link-text">Publications</span>
+  </a>
+  <a href="mailto:bustardchad@gmail.com" class="about-link" rel="" target="">
+    <i class="bi bi-envelope"></i>
+     <span class="about-link-text">Email</span>
+  </a>
+</div>
+      <div class="about-contents"><main class="content" id="quarto-document-content">
+<p>I’m a data enthusiast and machine learning practicioner leveraging large-scale simulations and Python-based data analysis to solve problems in astrophysics.</p>
+<p>I’m also adapting and growing my skillset to tackle problems a bit closer to home, and I envision this blog as a medium for communicating new independent projects, as well as some data-intensive work from my academic life.</p>
+<p>If you have any thoughts or comments on my work, please don’t hesitate to contact me!</p>
 
 
-
-
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1696512603831" data-listing-reading-time-sort="10">
-<div class="thumbnail">
-<p><a href="./posts/CR_Turb/CR_Turb_Notebook.html"> <p class="card-img-top"><img src="posts/CR_Turb/CR_Turb_Notebook_files/figure-html/cell-5-output-2.png"  class="thumbnail-image card-img"/></p> </a></p>
+</main></div>
+    </div>
+    <img src="Headshot_at_KITP.JPG" class="about-image
+  rounded " style="width: 15em;">
+  </div>
 </div>
-<div class="body">
-<a href="./posts/CR_Turb/CR_Turb_Notebook.html">
-<h3 class="no-anchor listing-title">
-Cosmic Ray Impacts on Turbulence
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-Let’s jump into some specific analysis of these simulations, focusing first on how CRs gain energy from turbulence.
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/CR_Turb/CR_Turb_Notebook.html"> </a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Distributed Computing" data-listing-date-sort="1694667600000" data-listing-file-modified-sort="1694723920290" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
-<div class="thumbnail">
-<p><a href="./posts/code_timing/index.html"> <p class="card-img-top"><img src="posts/code_timing/frontera.jpg"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/code_timing/index.html">
-<h3 class="no-anchor listing-title">
-Code Timing and Scaling on Distributed Clusters
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Distributed Computing'); return false;">
-Distributed Computing
-</div>
-</div>
-<a href="./posts/code_timing/index.html">
-<div class="listing-description">
-For the past 5 years, I’ve been the principal investigator (PI) on multiple supercomputing allocations, totalling over 15 million CPU hours of compute time. This means I’ve…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/code_timing/index.html">
-<div class="listing-date">
-Sep 14, 2023
-</div>
-<div class="listing-author">
-Chad Bustard
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Python,data analysis" data-listing-date-sort="1694494800000" data-listing-file-modified-sort="1694616201945" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13">
-<div class="thumbnail">
-<p><a href="./posts/LMC_Part2/LMC_Part2.html"> <p class="card-img-top"><img src="posts/LMC_Part2/RP_vs_SFR.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/LMC_Part2/LMC_Part2.html">
-<h3 class="no-anchor listing-title">
-Data Analysis and Visualization for Astrophysics Research: Part II
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('data analysis'); return false;">
-data analysis
-</div>
-</div>
-<a href="./posts/LMC_Part2/LMC_Part2.html">
-<div class="listing-description">
-In this post, we’ll continue to analyze simulations of the Large Magellanic Cloud, but this time, folding in some real observational data obtained by my collaborators Yong…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/LMC_Part2/LMC_Part2.html">
-<div class="listing-date">
-Sep 12, 2023
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Python,data analysis" data-listing-date-sort="1694322000000" data-listing-file-modified-sort="1694616409340" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="37">
-<div class="thumbnail">
-<p><a href="./posts/LMC_Part1/index.html"> <p class="card-img-top"><img src="posts/LMC_Part1/LMC_EdgeOn.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/LMC_Part1/index.html">
-<h3 class="no-anchor listing-title">
-Data Analysis and Visualization for Astrophysics Research: Part I
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('data analysis'); return false;">
-data analysis
-</div>
-</div>
-<a href="./posts/LMC_Part1/index.html">
-<div class="listing-description">
-In this tutorial post, I’ll show how to use Python-based data analysis and visualization tools to carry out exploratory and diagnostic data analysis of astrophysics…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/LMC_Part1/index.html">
-<div class="listing-date">
-Sep 10, 2023
-</div>
-<div class="listing-author">
-Chad Bustard
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="news" data-listing-date-sort="1694149200000" data-listing-file-modified-sort="1694466402552" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html"> <p class="card-img-top"><img src="posts/welcome/thumbnail.jpg"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/welcome/index.html">
-<h3 class="no-anchor listing-title">
-From Galaxy Atmospheres to Saving Earth’s Atmosphere
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<a href="./posts/welcome/index.html">
-<div class="listing-description">
-Announcing a series of blog posts spanning machine learning, climate science, galactic winds, and cosmic rays!
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html">
-<div class="listing-date">
-Sep 8, 2023
-</div>
-<div class="listing-author">
-Chad Bustard
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -374,13 +182,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
