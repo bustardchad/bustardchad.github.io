@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Chad Bustard">
+<meta name="dcterms.date" content="2024-01-19">
+
+<title>Chad Bustard - Deep Learning Cosmic Ray Transport</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Chad Bustard</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../Bustard_Resume.pdf" rel="" target=""><i class="bi bi-file-text" role="img">
+</i> 
+ <span class="menu-text">Resume/CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/bustardchad" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text">GitHub</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/chad-bustard-phd-20628090/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text">LinkedIn</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://ui.adsabs.harvard.edu/search/fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&amp;fq_database=database%3A%20(astronomy%20OR%20physics)&amp;q=author%3A(%22Bustard%2C%20Chad%22)&amp;sort=citation_count%20desc%2C%20bibcode%20desc&amp;p_=0" rel="" target=""><i class="bi bi-files" role="img">
+</i> 
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="mailto:bustardchad@gmail.com" rel="" target=""><i class="bi bi-envelope" role="img">
+</i> 
+ <span class="menu-text">Email</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Deep Learning Cosmic Ray Transport</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">PyTorch</div>
+                <div class="quarto-category">CNNs</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Chad Bustard </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 19, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="deep-learning-cosmic-ray-transport-from-density-maps-of-simulated-turbulent-gas" class="level1">
+<h1>Deep Learning Cosmic Ray Transport from Density Maps of Simulated, Turbulent Gas</h1>
+<section id="relevant-paper-bustard-and-wu-2024-machine-learning-science-and-technology" class="level3">
+<h3 class="anchored" data-anchor-id="relevant-paper-bustard-and-wu-2024-machine-learning-science-and-technology">Relevant paper: Bustard and Wu 2024, Machine Learning Science and Technology</h3>
+<p>I’m happy to announce that my recent work with John Wu (Space Telescope Science Institute &amp; Johns Hopkins University), titled “Deep Learning Cosmic Ray Transport from Density Maps of Simulated, Turbulent Gas”, is now online! In this paper, we demonstrate a novel, neural-based method to constrain cosmic ray transport solely from images of simulated, turbulent gas, and we utilize network interpretability methods (image manipulation and saliency maps) to derive new insights and highlight the transport-dependent impacts of cosmic rays on their surroundings.</p>
+<p><a href="files/BustardWu_Jan2024.pdf"> Click here to read the PDF </a> or wait for the official published version and arXiv link coming soon.</p>
+<p>This work was generously funded by the National Science Foundation and the Gordon and Betty Moore Foundation, and it wouldn’t have been possible without the support of the Kavli Institute for Theoretical Physics, which hosted me for my postdoctoral fellowship and hosted the 10-week program “Building a Physical Understanding of Galaxy Evolution with Data-driven Astronomy” where John and I met and began this project.</p>
+<p>So what are cosmic rays? What does transport mean, and why is it important? Keep reading to find out!</p>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="what-are-cosmic-rays" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-cosmic-rays">What are cosmic rays?</h3>
+<p>Galaxies are complex, dynamical systems with collisional components such as gas, and collisionless components that primarily interact through gravity (such as stars and dark matter). One of the collisional components, in addition to normal, non-relativistic gas and magnetic fields, is the cosmic ray population. These relativistic particles travel the Universe along magnetic field lines, and their interactions with non-relativistic gas are mediated by electromagnetic forces. While cosmic rays are in very low abundance compared to normal gas (only about a billionth of all particles in the Milky Way galaxy are cosmic rays), they collectively have as much energy as their less energetic, non-relativistic counterparts and, therefore, can exert a significant influence on galaxies and their surroundings. A large part of my doctoral and postdoctoral research, more-or-less, was to design and run numerical experiments on national supercomputers to model cosmic ray effects on different environments (sometimes full galaxies, sometimes idealized chunks of galaxies or the surrounding “circumgalactic medium”) incorporating modern, plasma physics-based theories of cosmic ray propagation.</p>
+</section>
+<section id="whats-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="whats-the-problem">What’s the problem?</h3>
+<p>From my research and that of others in the field, the grand extent of cosmic ray influence is coming into clearer view. For instance, cosmic ray pressure and energy transfer can drive a wide variety of fluid instabilities in stratified galaxy disks <span class="citation" data-cites="Heintz2020">(<a href="#ref-Heintz2020" role="doc-biblioref">Heintz, Bustard, and Zweibel 2020</a>)</span> and galaxy surroundings <span class="citation" data-cites="Tsung2021_staircase">(<a href="#ref-Tsung2021_staircase" role="doc-biblioref">Tsung, Oh, and Jiang 2022</a>)</span>, they can help ionize and pressurize cold molecular clouds where stars are born <span class="citation" data-cites="Cesarsky1978">(<a href="#ref-Cesarsky1978" role="doc-biblioref">Cesarsky and Volk 1978</a>)</span>, and they can help drive fantastic, galactic-scale, gaseous outflows called “galactic winds” that circulate gas throughout the Universe and help regulate star formation in galaxies <span class="citation" data-cites="breitschwerdtwinds1991">Bustard and Zweibel (<a href="#ref-Bustard2021" role="doc-biblioref">2021</a>)</span>. However, a nagging uncertainty that underlies these models is <em>how</em> cosmic rays propagate along magnetic fields and, subsequently, <em>how</em> they couple to non-relativistic gas. While our theory of cosmic rays is becoming ever-more advanced, confirmation from observations eludes us.</p>
+<p>The current state-of-the-art in constraining cosmic ray propagation is as follows. Phenomenological models of cosmic ray propagation are fit to a variety of direct and indirect cosmic ray indicators, for instance:<br>
+* Gamma-ray emission from cosmic ray interactions with thermal gas<br>
+* Radio synchrotron emission generated by cosmic ray electrons spiraling around magnetic field lines<br>
+* Cosmic ray spallation products, i.e.&nbsp;the secondary by-products of direct collisions between cosmic rays of varying composition with other particles.</p>
+<p>Obtaining these indicators or “observables” is expensive and time-consuming. Each of the three modes above is probed by a different telescope or instrument, with varying sensitivities, resolution, and sky coverage.</p>
+<p>On top of that, there are limitating assumptions to the phenomenological models themselves. Most importantly, what is ultimately being constrained is the large-scale propagation of cosmic rays, averaged over many tangled magnetic field lines. This propagation, which appears to be “diffusive”, does not tell us the <em>fine-grained</em> propagation and coupling to individual magnetic field lines, which is what we ultimately seek. At this stage, despite some very clever recent attempts to compare models to high-resolution observations <span class="citation" data-cites="Thomas2020RadioHarps">(<a href="#ref-Thomas2020RadioHarps" role="doc-biblioref">Thomas, Pfrommer, and Enßlin 2020</a>)</span>, <em>we have no robust, efficient way to determine the small-scale transport of cosmic rays from observations</em>. The following work, then, is essentially in untreaded water, with no good, direct baseline for comparison.</p>
+</section>
+<section id="a-proposal-and-a-novel-method-to-derive-new-insights-from-simulations" class="level3">
+<h3 class="anchored" data-anchor-id="a-proposal-and-a-novel-method-to-derive-new-insights-from-simulations">A proposal and a novel method to derive new insights from simulations</h3>
+<p>What if we could infer cosmic ray transport simply from images of e.g.&nbsp;neutral hydrogen? More fundamentally, instead of requiring “multimessenger” indicators of cosmic rays from radio emission, gamma-ray emission, etc., what if we could infer cosmic ray transport solely by observing the non-relativistic gas?</p>
+<p>The main assumption underlying this hypothesis is that cosmic rays must leave distinct, transport-dependent imprints on the surrounding gas. I’ve written a <a href="https://bustardchad.github.io/posts/CR_Turb/CR_Turb_Notebook.html"> blog post </a> about recent research I conducted with Peng Oh at UC-Santa Barbara <span class="citation" data-cites="BustardOh2023_arxiv">(<a href="#ref-BustardOh2023_arxiv" role="doc-biblioref">Bustard and Oh 2023</a>)</span> on this very topic, showing that cosmic rays modify the spectra of turbulent gas and the mixture between solenoidal and compressive motions, seemingly in distinct, transport-dependent ways.</p>
+<p>This work utilizes the TBs of 3D simulation data generated in <span class="citation" data-cites="BustardOh2023_arxiv">(<a href="#ref-BustardOh2023_arxiv" role="doc-biblioref">Bustard and Oh 2023</a>)</span> to probe whether convolutional neural networks can learn the underlying cosmic ray transport mode simply by observing gas density. We show that even a relatively simple network can classify unseen images to their correct category (5 total categories) with 95% accuracy!</p>
+<p>Maybe more importantly, we use image manipulation and network interpretability tools to pick out the salient features of the images that led to the network decision. This allows us to discover new imprints of cosmic rays on gas, improving our fundamental understanding of how cosmic rays interact with their surroundings.</p>
+<p>That’s enough introduction. Let’s dive in!</p>
+</section>
+</section>
+<section id="cosmic-ray-transport-modes-we-consider" class="level2">
+<h2 class="anchored" data-anchor-id="cosmic-ray-transport-modes-we-consider">Cosmic ray transport modes we consider</h2>
+<p>We generate images by manipulating 3D volume data stemming from simulations of astrophysical gas stirred in a turbulent box (imagine stirring a cup of coffee, but the ingredients are gas, magnetic fields, and cosmic rays, and the stirring utensil is a C++ module that applies random kicks to the gas…). Greater detail can be found in Bustard and Oh 2023 and Bustard and Wu 2024, but the main things to know are:</p>
+<ol type="1">
+<li><p>When cosmic rays are present, there are equal amounts (in terms of pressure) of cosmic rays and gas. This “equipartition” is expected in the Milky Way disk and could be reasonable, as well, in circumgalactic environments above the main plane of the Galactic disk. Magnetic pressure is about 10 times weaker, but while it has a less important dynamical influence on the system, it serves as the binder between cosmic rays and gas.</p></li>
+<li><p>We consider five parametrizations of cosmic ray transport, outlined in Table 1 below. The first, MHD, is a system with no cosmic rays. CR_Advect includes cosmic rays that are fully locked to the gas, i.e.&nbsp;there is no additional slippage or transport of cosmic rays along magnetic field lines. CR_Diff_Fiducial includes additional cosmic ray diffusion, with a diffusion coefficient <span class="math inline">\(\kappa\)</span> that sits at a sweet-spot where cosmic rays will have maximal impact on the gas. CR_Diff100 includes diffusion with a diffusion coefficient 100 times greater than the fiducial case. This means cosmic rays diffuse over small-scale perturbations very quickly, generally not having a great influence on the gas. The last case, in many ways the most interesting to probe, is CR_withStreaming. Transport in this case includes fiducial diffusion but also includes extra terms for so-called cosmic ray “streaming.” This type of transport is fundamentally different from diffusion and, subsequently, cosmic rays interact with gas perturbations in a fundamentally different way. Streaming also adds an energy exchange term between the gas and cosmic rays that isn’t present in the purely diffusive case. Streaming generally has the strongest theoretical basis, but constraining transport to be streaming vs diffusion is very difficult using current phenomenological models and multiwavelength observations.</p></li>
+</ol>
+<div>
+<p><img src="figures/BustardWu_Table1.png" width="500" class="center"></p>
+</div>
+<p>A set of examples from each class is given below</p>
+<div>
+<p><img src="figures/BustardWu_Fig1.png" width="800" class="center"></p>
+</div>
+<p>Note how the MHD, CR_Advect, and CR_Diff100 classes, in particular, show sharp transitions between dense (white) and underdense (black) regions, as well as numerous small-scale structure. CR_Diff_Fiducial shows far less small-scale structure, which we believe is due to strong cosmic ray damping of gas perturbations in that “sweet-spot” diffusion regime. CR_withStreaming is somewhat intermediate.</p>
+<p>To better visualize scale-dependent differences between images, we show 1D power spectra as a function of wave number <span class="math inline">\(k\)</span>. There are clear differences between the classes, with the MHD case showing the greatest power at intermediate scales and CR_Diff_Fiducial showing far less.</p>
+<div>
+<p><img src="figures/BustardWu_Fig2.png" width="500" class="center"></p>
+</div>
+<p>Part of our exploration is to see whether convolutional neural networks can learn those differences when presented with 2D images. However, we also explore what happens when we equal out those spectral differences, leaving a network to learn solely <em>phase</em> differences arising due to different cosmic ray transport modes.</p>
+</section>
+<section id="image-generation-and-processing" class="level2">
+<h2 class="anchored" data-anchor-id="image-generation-and-processing">Image generation and processing</h2>
+<p>To create 2D images from 3D cubes, we largely follow previous, similar work from Peek and Burkhart, which analyzed CNNs trained on MHD simulations (without cosmic rays) to learn salient imprints of <em>magnetic fields</em> on gas (rather than our goal to learn imprints of <em>cosmic rays</em> on gas). We create one-cell-thick slices in the plane parallel to the initial magnetic field direction (in the y-z plane in the figure below).</p>
+<div>
+<p><img src="figures/BustardWu_Fig3.png" width="600" class="center"></p>
+</div>
+<p>Splitting these images into training, validation, and test sets, in this case, requires substantial care. Normally, one splits data randomly; however, imagine two images directly next to each other (zero separation in the x-direction), and imagine that one falls into the training set and one falls into the validation set. Because gaseous structures extend over multiple cells in the x-direction, there are strong correlations between these images. During training and hyperparameter tuning, the network simply memorizes the correlation, cheating its way to very high accuracies while not learning any true, salient information. This was readily apparent in our interpretability tests, with saliency maps showing seemingly random, pixel-scale junk rather than expected salient features, underscoring the need for rigorous network interpretation.</p>
+<p>For this reason, we carefully separate training, validation, and test sets originating from the same 3D cube by spatial buffers. This decreases correlations between the sets. Furthermore, we generate images from 6 simulation cubes taken at different times, each snapshot separated by at least an eddy turnover time so the turbulence has randomized and erased all correlations. This decreases image correlations <em>within each set</em>, increasing the variety of images the network is trained and finetuned on.</p>
+<p>In all, we generate 90,000 images to train, fine-tune, and test our network (50,000 training images, 20,000 validation images, and 20,000 test images). The density in each image is logarithmically scaled to bring the full range of densities to the forefront, and all images are histogram equalized and normalized to values between 0 and 1.</p>
+</section>
+<section id="convolutional-neural-network-cnn-structure-and-training" class="level2">
+<h2 class="anchored" data-anchor-id="convolutional-neural-network-cnn-structure-and-training">Convolutional Neural Network (CNN) Structure and Training</h2>
+<p>Convolutional neural networks (CNNs) have been the workhorses of computer vision tasks for a number of years, and CNN variations remain competitive on standard computer vision benchmarks compared to newer, more advanced architectures such as Vision Transformers.</p>
+<p>Each layer of our network contains a 2D convolution, batch normalization, and SiLU activations (similar to other continuously differential activation functions but robust against the “dying neuron” problem possible with traditional ReLU activations).</p>
+<p>To ward off overfitting, we add a dropout layer near the end of the network in between the average pooling layer and the final fully connected layer. In testing, we determined that dropping out 25% of neurons worked best, as shown in the PyTorch code below that generates our fiducial network.</p>
+<pre><code>def create_model(config):
+  model = nn.Sequential(
+      nn.Conv2d(1, 8, kernel_size=3, stride=2, padding=1),
+      nn.BatchNorm2d(8),
+      nn.SiLU(),
+      nn.Conv2d(8, 16, kernel_size=3, stride=2, padding=1),
+      nn.BatchNorm2d(16),
+      nn.SiLU(),
+      nn.Conv2d(16, 32, kernel_size=3, stride=2, padding=1),
+      nn.BatchNorm2d(32),
+      nn.SiLU(),
+      nn.Conv2d(32, 64, kernel_size=3, stride=2, padding=1),
+      nn.BatchNorm2d(64),
+      nn.SiLU(),
+      nn.AdaptiveAvgPool2d(4), # works with any input size
+      nn.Dropout(0.25)
+      nn.Flatten(),
+      nn.Linear(64*4*4,config.num_classes)
+  ).to(device)
+</code></pre>
+<p>To size our network appropriately to the dataset, we tested different numbers of layers and logged the training and validation loss, as well as other statistics such as accuracy, precision, recall, and F1 score (the harmonic mean between precision and recall). The loss for different numbers of layers is plotted below over 40 epochs.</p>
+<div>
+<p><img src="figures/BustardWu_lossFull.png" width="400" class="center"></p>
+</div>
+<p>While somewhat volatile, the loss generally shows 4 layers to work best. Fewer layers result in higher training loss, while more layers show signs of validation loss separating from training loss (overfitting). Other parameter choices (learning rate, batch size, etc.) were similarly determined through a manual hyperparameter study.</p>
+<p>Loss for the Flattened Power network is shown below. In this case, overfitting was obvious after about 25 epochs, so our final, trained network was taken after only 25 epochs.</p>
+<div>
+<p><img src="figures/BustardWu_lossFlat.png" width="400" class="center"></p>
+</div>
+<p>In Table 2 below, we display several commonly used metrics for multi-class machine learning problems, which depend on the number of true positives (TP), true negatives (TN), false positives (FP), and false negatives (FN). The accuracy is defined as (TP + TN) / (TP + TN + FP + FN), the precision is defined as the TP / (TP + FP), the recall is defined as the TP / (TP + FN), and the F1 score is the harmonic mean between the purity and recall. The precision can be considered a measure of “purity” while the recall can be thought of as “completeness” for CNN predictions.</p>
+<div>
+<p><img src="figures/BustardWu_Table2.png" width="600" class="center"></p>
+</div>
+<p>In some cases, for instance for the MHD class, the network achieves high precision at the expense of recall, a common behavior that makes the F1 score a necessary metric to present.</p>
+<p>Accuracies range from 92% to 99% for the Full Power model, which is quite good! Accuracies are somewhat lower for the Flattened Power model, as expected since some distinguishing spectral differences are now thrown out, but still quite high, suggesting significant transport-dependent phase differences!</p>
+<p>Below is a confusion matrix for the Full Power model, showing that the network most frequently mistakes MHD, CR_Advect, and CR_Diff100 images. This is an excellent confirmation of our expectation, since we anticipated that cosmic rays with those propagation modes leave gas primarily unaffected.</p>
+<div>
+<p><img src="figures/BustardWu_Fig4.png" width="600" class="center"></p>
+</div>
+<p>Most impressively, the CR_Diff_Fiducial and CR_withStreaming classes, which differ only in that cosmic ray streaming is included in addition to fiducial diffusivity, are well-distinguished, with the network achieving 94.2% accuracy on CR_withStreaming and only rarely (3.4% of the time) confusing CR_withStreaming for the CR_Diff_Fiducial class. Instead, CR_withStreaming is confused for CR_Diff100 ≈ 14.5% of the time, likely because additional CR streaming means CRs are propagating faster along field lines, somewhat akin to faster diffusion.</p>
+</section>
+<section id="network-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="network-interpretation">Network Interpretation</h2>
+<p>Armed with a quite accurate network trained on non-correlated data, we can test more extensively <em>why</em> the network made its decisions. The hope is that this interpretability exercise can confirm expected behavior and/or show us new transport-dependent imprints of cosmic rays on turbulence.</p>
+<section id="saliency-maps" class="level3">
+<h3 class="anchored" data-anchor-id="saliency-maps">Saliency Maps</h3>
+<p>We start by making saliency maps. These work as follows: 1. Load in an image from one of the data sets 2. Evaluate the image with gradients on 3. Run backpropagation and store the gradients 4. Map the gradients to individual pixels 5. Gaussian smooth the gradient map 6. Return the image and a corresponding saliency map for a given class</p>
+<p>This allows us to see what parts of a given image make the network think it belongs to a given class. A Python/PyTorch function to accomplish this is below:</p>
+<pre><code>def saliency_class_specific(image, model, pred_class, sigma = 4.0):
+    """Create a saliency map showing activations for each class on an input image
+    
+    Inputs: 
+        image: 2D image
+        model: trained PyTorch model
+        pred_class: class to pull out saliency for
+        sigma: standard deviation for gaussian smoothing
+
+    Returns:
+        plt_image: input image
+        filtered_saliency: Gaussian smoothed saliency on a 2D grid
+
+    """
+    model.eval() # put in evaluation mode
+
+    # requires a 4D tensor, so need to reshape this 3D one
+    image = image.reshape(1, 1, image.shape[1], image.shape[2])
+
+
+    # we need to find the gradient with respect to the input image, so we need to call requires_grad_ on it
+    image.requires_grad_()
+
+    # run the model on the image
+    outputs = model(image)
+
+    # Get the index corresponding to the maximum score and the maximum score itself.
+    # pred_max_index = outputs.argmax()
+    pred_max_index = pred_class
+    pred_max = outputs[0,pred_max_index]
+
+    # backward pass to calculate the gradient
+    pred_max.backward()
+
+    saliency, _ = torch.max(image.grad[0].data.abs(),dim=0) # dim = 0 is channel
+
+    # renormalize saliency
+    saliency = (saliency - saliency.min())/(saliency.max()-saliency.min())
+
+    # code to plot the saliency map as a heatmap
+    plt_image = image.reshape(image.shape[2],image.shape[3])
+    plt_image = plt_image.detach().numpy()
+
+    # Blur the saliency maps using a gaussian kernel and return saliency to later plot on the original image
+    filtered_saliency = gaussian_filter(saliency,sigma=sigma)
+
+    return plt_image, filtered_saliency
+</code></pre>
+<p>Saliency heat maps are overplotted on top of select images from each class below. Each row shows an input image from a different class, and each column shows the regions of that image that led the network to believe it belonged to each class.</p>
+<div>
+<p><img src="figures/BustardWu_Fig5.png" width="800" class="center"></p>
+</div>
+<p>These maps are quite a bit more difficult to interpret in this astrophysical case compared to typical classification problems where, for instance, a network determines whether a dog or cat is present in an image. The reason is likely that, in physics, differences over a range of scales are frequently the salient features, rather than localized objects with well-defined boundaries.</p>
+<p>Nevertheless, these saliency experiments can be quite illuminating if we restrict ourselves to fewer classes and retrain our network. For instance, in the figure below, yellow contours show the saliency for 12 different images, 6 from the MHD class and 6 from the CR_Diff_Fiducial class, with the network trained (to 99% accuracy!) on only those two classes.</p>
+<div>
+<p><img src="figures/BustardWu_Fig7.png" width="800" class="center"></p>
+</div>
+<p>Now, it’s clear that CR_Diff_Fiducial class is distinguished by broad gray regions marking smooth density transitions, while the MHD class is characterized instead by sharp transitions and lots of small-scale structure. With all 5 classes present, this is harder to discern because all three of MHD, CR_Advect, and CR_Diff100 show sharp transitions. The network must pick up on higher-level distinguishing information, but this is difficult to see.</p>
+</section>
+<section id="image-manipulation" class="level3">
+<h3 class="anchored" data-anchor-id="image-manipulation">Image Manipulation</h3>
+<p>Knowing that smooth transitions characterizes the CR_Diff_Fiducial images, let’s try some image manipulation and probe this further. We’ll take sample images from each class (different columns) and <em>blur</em> each image to different extents by applying a Gaussian filter with varying standard deviation <span class="math inline">\(\sigma\)</span>. In the top center of each image, we display the probability that the network believes this image belongs to the CR_Diff_Fiducial class.</p>
+<div>
+<p><img src="figures/BustardWu_Fig8.png" width="800" class="center"></p>
+</div>
+<p>Without any filtering, the network is confident (and correct) in all cases, but as we filter more and more, the network more and more confidently predicts the CR_Diff_Fiducial class for every image. This collapse to one class tells us that the CR_Diff_Fiducial class is, indeed, very strongly characterized by <em>blurriness</em> and lack of small-scale structure.</p>
+</section>
+</section>
+<section id="discussion-and-future-work" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-and-future-work">Discussion and Future Work</h2>
+<p>(include: Figure 11) Talk about limitations to applying this to observations at this stage.</p>
+</section>
+<section id="references" class="level2">
+
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-breitschwerdtwinds1991" class="csl-entry" role="listitem">
+Breitschwerdt, D., J. F. McKenzie, and H. J. Voelk. 1991. <span>“<span class="nocase">Galactic winds. I - Cosmic ray and wave-driven winds from the Galaxy</span>”</span> 245 (May): 79–98.
+</div>
+<div id="ref-BustardOh2023_arxiv" class="csl-entry" role="listitem">
+Bustard, Chad, and S. Peng Oh. 2023. <span>“<span class="nocase">Cosmic-Ray Drag and Damping of Compressive Turbulence</span>”</span> 955 (1): 64. <a href="https://doi.org/10.3847/1538-4357/aceef9">https://doi.org/10.3847/1538-4357/aceef9</a>.
+</div>
+<div id="ref-Bustard2021" class="csl-entry" role="listitem">
+Bustard, Chad, and Ellen G. Zweibel. 2021. <span>“<span class="nocase">Cosmic-Ray Transport, Energy Loss, and Influence in the Multiphase Interstellar Medium</span>”</span> 913 (2): 106. <a href="https://doi.org/10.3847/1538-4357/abf64c">https://doi.org/10.3847/1538-4357/abf64c</a>.
+</div>
+<div id="ref-Bustard2020" class="csl-entry" role="listitem">
+Bustard, Chad, Ellen G. Zweibel, Elena D’Onghia, III Gallagher J. S., and Ryan Farber. 2020. <span>“<span class="nocase">Cosmic-Ray-driven Outflows from the Large Magellanic Cloud: Contributions to the LMC Filament</span>”</span> 893 (1): 29. <a href="https://doi.org/10.3847/1538-4357/ab7fa3">https://doi.org/10.3847/1538-4357/ab7fa3</a>.
+</div>
+<div id="ref-Cesarsky1978" class="csl-entry" role="listitem">
+Cesarsky, C. J., and H. J. Volk. 1978. <span>“<span class="nocase">Cosmic Ray Penetration into Molecular Clouds</span>”</span> 70 (November): 367.
+</div>
+<div id="ref-Farber2018" class="csl-entry" role="listitem">
+Farber, R., M. Ruszkowski, H. -Y. K. Yang, and E. G. Zweibel. 2018. <span>“<span class="nocase">Impact of Cosmic-Ray Transport on Galactic Winds</span>”</span> 856 (2): 112. <a href="https://doi.org/10.3847/1538-4357/aab26d">https://doi.org/10.3847/1538-4357/aab26d</a>.
+</div>
+<div id="ref-Heintz2020" class="csl-entry" role="listitem">
+Heintz, Evan, Chad Bustard, and Ellen G. Zweibel. 2020. <span>“<span class="nocase">The Role of the Parker Instability in Structuring the Interstellar Medium</span>”</span> 891 (2): 157. <a href="https://doi.org/10.3847/1538-4357/ab7453">https://doi.org/10.3847/1538-4357/ab7453</a>.
+</div>
+<div id="ref-Ruszkowski2017" class="csl-entry" role="listitem">
+Ruszkowski, Mateusz, H. -Y. Karen Yang, and Ellen Zweibel. 2017. <span>“<span class="nocase">Global Simulations of Galactic Winds Including Cosmic-ray Streaming</span>”</span> 834 (2): 208. <a href="https://doi.org/10.3847/1538-4357/834/2/208">https://doi.org/10.3847/1538-4357/834/2/208</a>.
+</div>
+<div id="ref-Thomas2020RadioHarps" class="csl-entry" role="listitem">
+Thomas, Timon, Christoph Pfrommer, and Torsten Enßlin. 2020. <span>“<span class="nocase">Probing Cosmic-Ray Transport with Radio Synchrotron Harps in the Galactic Center</span>”</span> 890 (2): L18. <a href="https://doi.org/10.3847/2041-8213/ab7237">https://doi.org/10.3847/2041-8213/ab7237</a>.
+</div>
+<div id="ref-Tsung2021_staircase" class="csl-entry" role="listitem">
+Tsung, Tsun Hin Navin, S. Peng Oh, and Yan-Fei Jiang. 2022. <span>“<span class="nocase">The cosmic-ray staircase: the outcome of the cosmic-ray acoustic instability</span>”</span> 513 (3): 4464–93. <a href="https://doi.org/10.1093/mnras/stac1123">https://doi.org/10.1093/mnras/stac1123</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
