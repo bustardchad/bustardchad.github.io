@@ -372,7 +372,7 @@ div.csl-indent {
 <div>
 <p><img src="figures/BustardWu_Fig5.png" width="800" class="center"></p>
 </div>
-<p>These maps are quite a bit more difficult to interpret in this astrophysical case compared to typical classification problems where, for instance, a network determines whether a dog or cat is present in an image. The reason is likely that, in physics, differences over a range of scales are frequently the salient features, rather than localized objects with well-defined boundaries.</p>
+<p>These maps are quite a bit more difficult to interpret in this astrophysical case compared to typical classification problems where, for instance, a network determines whether a dog or cat is present in an image. The reason is likely that, in physics, differences over a range of scales are frequently the salient features, rather than localized objects with well-defined boundaries. Related work using wavelet scattering transforms, which construct similar representations as CNNs (e.g. <span class="citation" data-cites="bruna2013invariant Cheng+2023 Velicheti+2023">(<a href="#ref-bruna2013invariant" role="doc-biblioref">Bruna and Mallat 2013</a>; <a href="#ref-Cheng+2023" role="doc-biblioref">Cheng et al. 2023</a>; <a href="#ref-Velicheti+2023" role="doc-biblioref">Velicheti, Wu, and Petric 2023</a>)</span>), has demonstrated the importance of encoding phase information and scale separation.</p>
 <p>Nevertheless, these saliency experiments can be quite illuminating if we restrict ourselves to fewer classes and retrain our network. For instance, in the figure below, yellow contours show the saliency for 12 different images, 6 from the <strong>MHD</strong> class and 6 from the <strong>CR_Diff_Fiducial</strong> class, with the network trained (to 99% accuracy!) on only those two classes.</p>
 <div>
 <p><img src="figures/BustardWu_Fig7.png" width="800" class="center"></p>
@@ -392,14 +392,16 @@ div.csl-indent {
 <p>Our <strong>Flattened Power</strong> dataset gives us a different glimpse into how cosmic rays impact their surroundings. Namely, by erasing all spectral information (i.e.&nbsp;the presence or lack of small-scale structure is no longer available to the network), a separately trained network must learn the <em>phase</em> differences that arise from different cosmic ray transport modes.</p>
 <p>While the highest accuracies achieved in this network are not as high as those for the <strong>Full Power</strong> dataset, they are still quite high and allow us to possibly learn new insights by applying our saliency map method. The figure below shows a similar saliency experiment to before, and it provides some possible insights to what separates the <strong>CR_withStreaming</strong> class from the others: the presence of sharp, dark (underdense) features that are, in all images shown, strongly correlated with predictions for the <strong>CR_withStreaming</strong> class.</p>
 <div>
-<p><img src="figures/BustardWu_Fig12.png" width="800" class="center"></p>
+<p><img src="figures/BustardWu_Fig12.png" width="700" class="center"></p>
 </div>
 <p>While it’s too early to try to apply such a methodology (flatten power, train a network, etc.) to real astrophysical observations, for reasons outlined in the next section, such a strong indicator is a positive sign that streaming transport leads to unique, non-spectral imprints on the surrounding gas. In Bustard and Wu 2024, we speculate that this signature is related to a transport-dependent change in the mixture of solenoidal vs compressive fluid motions, as found in <span class="citation" data-cites="BustardOh2023_arxiv">(<a href="#ref-BustardOh2023_arxiv" role="doc-biblioref">Bustard and Oh 2023</a>)</span>.</p>
-<p>## Discussion</p>
-<p>While this exploratory study leads to highly accurate predictions on simulation data, can we apply these trained networks to real astronomical observations? Not quite.</p>
-<p>In our paper, we briefly discuss three limitations to the simulations themselves that prohibit this: incomplete physics, limited parameter coverage, and issues of convergence make even these state-of-the-art simulations only an idealized representation of reality. Furthermore, there are observational uncertainties that make this endeavor difficult. We show, for instance, that our trained network does not accurately predict classes if images are created by projecting over many cells in the x-direction. This effect, related to the optical depth of an image, is highly environment-dependent and uncertain, and this issue of “domain shift”, i.e.&nbsp;applying a model trained on one dataset to another, is a prevalent issue in machine learning and an active area of research.</p>
-<p>Overall, our work represents a novel demonstration of deep CNNs learning salient imprints of cosmic rays on surrounding gas from simulations of astrophysical turbulence, and our interpretability exercises strengthen prior theories of this cosmic ray transport-dependent impact, reveal new insights, and help build intuition.</p>
 </section>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<p>While this exploratory study leads to highly accurate predictions on simulation data, can we apply these trained networks to real astronomical observations? Not quite.</p>
+<p>In our paper, we briefly discuss three limitations to the simulations themselves that prohibit this: incomplete physics, limited parameter coverage, and issues of convergence make even these state-of-the-art simulations only an idealized representation of reality. Furthermore, there are observational uncertainties that make this endeavor difficult. We show, for instance, that our trained network does not accurately predict classes if images are created by projecting over many cells in the x-direction. This effect, related to the optical depth of an image, is highly environment-dependent and uncertain, and this issue of “domain shift”, i.e.&nbsp;applying a model trained on one dataset to another, is a prevalent issue in machine learning and an active area of research <span class="citation" data-cites="ciprijanovic_deepastrouda">(<a href="#ref-ciprijanovic_deepastrouda" role="doc-biblioref">Ćiprijanović et al. 2023</a>)</span>.</p>
+<p>Overall, our work represents a novel demonstration of deep CNNs learning salient imprints of cosmic rays on surrounding gas from simulations of astrophysical turbulence, and our interpretability exercises strengthen prior theories of this cosmic ray transport-dependent impact, reveal new insights, and help build intuition.</p>
 </section>
 <section id="references" class="level2">
 
@@ -413,6 +415,9 @@ div.csl-indent {
 <div id="ref-breitschwerdtwinds1991" class="csl-entry" role="listitem">
 Breitschwerdt, D., J. F. McKenzie, and H. J. Voelk. 1991. <span>“<span class="nocase">Galactic winds. I - Cosmic ray and wave-driven winds from the Galaxy</span>”</span> 245 (May): 79–98.
 </div>
+<div id="ref-bruna2013invariant" class="csl-entry" role="listitem">
+Bruna, Joan, and Stéphane Mallat. 2013. <span>“Invariant Scattering Convolution Networks.”</span> <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em> 35 (8): 1872–86.
+</div>
 <div id="ref-BustardOh2023_arxiv" class="csl-entry" role="listitem">
 Bustard, Chad, and S. Peng Oh. 2023. <span>“<span class="nocase">Cosmic-Ray Drag and Damping of Compressive Turbulence</span>”</span> 955 (1): 64. <a href="https://doi.org/10.3847/1538-4357/aceef9">https://doi.org/10.3847/1538-4357/aceef9</a>.
 </div>
@@ -424,6 +429,12 @@ Bustard, Chad, Ellen G. Zweibel, Elena D’Onghia, III Gallagher J. S., and Ryan
 </div>
 <div id="ref-Cesarsky1978" class="csl-entry" role="listitem">
 Cesarsky, C. J., and H. J. Volk. 1978. <span>“<span class="nocase">Cosmic Ray Penetration into Molecular Clouds</span>”</span> 70 (November): 367.
+</div>
+<div id="ref-Cheng+2023" class="csl-entry" role="listitem">
+Cheng, Sihao, Rudy Morel, Erwan Allys, Brice Ménard, and Stéphane Mallat. 2023. <span>“<span class="nocase">Scattering Spectra Models for Physics</span>.”</span> <em>arXiv e-Prints</em>, June, arXiv:2306.17210. <a href="https://doi.org/10.48550/arXiv.2306.17210">https://doi.org/10.48550/arXiv.2306.17210</a>.
+</div>
+<div id="ref-ciprijanovic_deepastrouda" class="csl-entry" role="listitem">
+Ćiprijanović, A., A. Lewis, K. Pedro, S. Madireddy, B. Nord, G. N. Perdue, and S. M. Wild. 2023. <span>“<span class="nocase">DeepAstroUDA: semi-supervised universal domain adaptation for cross-survey galaxy morphology classification and anomaly detection</span>.”</span> <em>Machine Learning: Science and Technology</em> 4 (2): 025013. <a href="https://doi.org/10.1088/2632-2153/acca5f">https://doi.org/10.1088/2632-2153/acca5f</a>.
 </div>
 <div id="ref-Farber2018" class="csl-entry" role="listitem">
 Farber, R., M. Ruszkowski, H. -Y. K. Yang, and E. G. Zweibel. 2018. <span>“<span class="nocase">Impact of Cosmic-Ray Transport on Galactic Winds</span>”</span> 856 (2): 112. <a href="https://doi.org/10.3847/1538-4357/aab26d">https://doi.org/10.3847/1538-4357/aab26d</a>.
@@ -445,6 +456,9 @@ Thomas, Timon, Christoph Pfrommer, and Torsten Enßlin. 2020. <span>“<span cla
 </div>
 <div id="ref-Tsung2021_staircase" class="csl-entry" role="listitem">
 Tsung, Tsun Hin Navin, S. Peng Oh, and Yan-Fei Jiang. 2022. <span>“<span class="nocase">The cosmic-ray staircase: the outcome of the cosmic-ray acoustic instability</span>”</span> 513 (3): 4464–93. <a href="https://doi.org/10.1093/mnras/stac1123">https://doi.org/10.1093/mnras/stac1123</a>.
+</div>
+<div id="ref-Velicheti+2023" class="csl-entry" role="listitem">
+Velicheti, Phani Datta, John F. Wu, and Andreea Petric. 2023. <span>“<span class="nocase">Quantifying Roman WFI Dark Images with the Wavelet Scattering Transform</span>”</span> 135 (1050): 084502. <a href="https://doi.org/10.1088/1538-3873/acf073">https://doi.org/10.1088/1538-3873/acf073</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
