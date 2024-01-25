@@ -287,14 +287,14 @@ div.csl-indent {
       nn.Linear(64*4*4,config.num_classes)
   ).to(device)
 </code></pre>
-<p>To size our network appropriately to the dataset, we tested different numbers of layers and logged the training and validation loss, as well as other statistics such as accuracy, precision, recall, and F1 score (the harmonic mean between precision and recall). The loss for different numbers of layers is plotted below over 40 epochs.</p>
+<p>To size our network appropriately to the dataset, we tested different numbers of layers and logged the training and validation loss, as well as other statistics such as accuracy, precision, recall, and F1 score (the harmonic mean between precision and recall). The loss for 4 and 5 layer networks is plotted below over 40 epochs.</p>
 <div>
-<p><img src="figures/BustardWu_lossFull.png" width="500" class="center"></p>
+<p><img src="figures/loss_fullpwr_largervalset.png" width="500" class="center"></p>
 </div>
-<p>While somewhat volatile, the loss generally shows 4 layers to work best. Fewer layers result in higher training loss, while more layers show signs of validation loss separating from training loss (overfitting). Other parameter choices (learning rate, batch size, etc.) were similarly determined through a manual hyperparameter study.</p>
+<p>The loss generally shows 4 layers to work best. Fewer layers (not shown) resulted in higher training loss, while a 5 layer network shows signs of validation loss separating from training loss (overfitting). Other parameter choices (learning rate, batch size, etc.) were similarly determined through a manual hyperparameter study.</p>
 <p>Loss for the Flattened Power network is shown below. In this case, overfitting was obvious after about 25 epochs, so our final, trained network was taken after only 25 epochs.</p>
 <div>
-<p><img src="figures/BustardWu_lossFlat.png" width="500" class="center"></p>
+<p><img src="figures/loss_killpwr.png" width="500" class="center"></p>
 </div>
 <p>In the table below, we display several commonly used metrics for multi-class machine learning problems, which depend on the number of true positives (TP), true negatives (TN), false positives (FP), and false negatives (FN). The accuracy is defined as (TP + TN) / (TP + TN + FP + FN), the precision is defined as the TP / (TP + FP), the recall is defined as the TP / (TP + FN), and the F1 score is the harmonic mean between the purity and recall. The precision can be considered a measure of “purity” while the recall can be thought of as “completeness” for CNN predictions. In some cases, for instance for the MHD class, the network achieves high precision at the expense of recall, a common behavior that makes the F1 score a necessary metric to present.</p>
 <div>
@@ -368,14 +368,14 @@ div.csl-indent {
 
     return plt_image, filtered_saliency
 </code></pre>
-<p>Saliency heat maps are overplotted on top of select images from each class below. Each row shows an input image from a different class, and each column shows the regions of that image that led the network to believe it belonged to each class.</p>
+<p>Saliency heat maps are overplotted on top of select images from each class below. Each column shows an input image from a different class, and each row shows the regions of that image that led the network to believe it belonged to each class.</p>
 <div>
 <p><img src="figures/BustardWu_Fig5.png" width="800" class="center"></p>
 </div>
 <p>These maps are quite a bit more difficult to interpret in this astrophysical case compared to typical classification problems where, for instance, a network determines whether a dog or cat is present in an image. The reason is likely that, in physics, differences over a range of scales are frequently the salient features, rather than localized objects with well-defined boundaries. Related work using wavelet scattering transforms, which construct similar representations as CNNs (e.g. <span class="citation" data-cites="bruna2013invariant Cheng+2023 Velicheti+2023">(<a href="#ref-bruna2013invariant" role="doc-biblioref">Bruna and Mallat 2013</a>; <a href="#ref-Cheng+2023" role="doc-biblioref">Cheng et al. 2023</a>; <a href="#ref-Velicheti+2023" role="doc-biblioref">Velicheti, Wu, and Petric 2023</a>)</span>), has demonstrated the importance of encoding phase information and scale separation.</p>
 <p>Nevertheless, these saliency experiments can be quite illuminating if we restrict ourselves to fewer classes and retrain our network. For instance, in the figure below, yellow contours show the saliency for 12 different images, 6 from the <strong>MHD</strong> class and 6 from the <strong>CR_Diff_Fiducial</strong> class, with the network trained (to 99% accuracy!) on only those two classes.</p>
 <div>
-<p><img src="figures/BustardWu_Fig7.png" width="800" class="center"></p>
+<p><img src="figures/BustardWu_Fig6.png" width="800" class="center"></p>
 </div>
 <p>Now, it’s clear that <strong>CR_Diff_Fiducial</strong> class is distinguished by broad gray regions marking smooth density transitions, while the <strong>MHD</strong> class is characterized instead by sharp transitions and lots of small-scale structure. With all 5 classes present, this is harder to discern because all three of <strong>MHD</strong>, <strong>CR_Advect</strong>, and <strong>CR_Diff100</strong> show sharp transitions. The network must pick up on higher-level distinguishing information, but this is difficult to see.</p>
 </section>
@@ -383,24 +383,35 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="image-manipulation">Image Manipulation</h3>
 <p>Knowing that smooth transitions characterizes the <strong>CR_Diff_Fiducial</strong> images, let’s try some image manipulation and probe this further. We’ll take sample images from each class (each column is a different class) and <em>blur</em> each image to different extents by applying a Gaussian filter with varying standard deviation <span class="math inline">\(\sigma\)</span>. In the top center of each image, we display the probability that the network believes this image belongs to the <strong>CR_Diff_Fiducial</strong> class.</p>
 <div>
-<p><img src="figures/BustardWu_Fig8.png" width="800" class="center"></p>
+<p><img src="figures/BustardWu_Fig7.png" width="800" class="center"></p>
 </div>
 <p>Without any filtering, the network is confident (and correct) in all cases, but as we filter more and more, the network more and more confidently predicts the <strong>CR_Diff_Fiducial</strong> class for every image. This collapse to one class tells us that the <strong>CR_Diff_Fiducial</strong> class is, indeed, very strongly characterized by <em>blurriness</em> and lack of small-scale structure.</p>
 </section>
 <section id="salient-non-spectral-features" class="level3">
 <h3 class="anchored" data-anchor-id="salient-non-spectral-features">Salient, Non-Spectral Features</h3>
 <p>Our <strong>Flattened Power</strong> dataset gives us a different glimpse into how cosmic rays impact their surroundings. Namely, by erasing all spectral information (i.e.&nbsp;the presence or lack of small-scale structure is no longer available to the network), a separately trained network must learn the <em>phase</em> differences that arise from different cosmic ray transport modes.</p>
-<p>While the highest accuracies achieved in this network are not as high as those for the <strong>Full Power</strong> dataset, they are still quite high and allow us to possibly learn new insights by applying our saliency map method. The figure below shows a similar saliency experiment to before, and it provides some possible insights to what separates the <strong>CR_withStreaming</strong> class from the others: the presence of sharp, dark (underdense) features that are, in all images shown, strongly correlated with predictions for the <strong>CR_withStreaming</strong> class.</p>
+<p>A confusion matrix for this <strong>Flattened Power</strong> dataset and our best-trained model is shown below.</p>
 <div>
-<p><img src="figures/BustardWu_Fig12.png" width="700" class="center"></p>
+<p><img src="figures/BustardWu_Fig9.png" width="800" class="center"></p>
 </div>
+<p>While the highest accuracies achieved in this network are not as high as those for the <strong>Full Power</strong> dataset, they are still quite high and allow us to possibly learn new insights by applying our saliency map method. The figure below shows a similar saliency experiment to before, and it provides some possible insights to what separates the <strong>CR_withStreaming</strong> class from the others: the presence of sharp, dark (underdense) features that are, in all images shown, strongly correlated with predictions for the <strong>CR_withStreaming</strong> class.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/BustardWu_Fig10.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Saliency maps for Flattened Power images</figcaption>
+</figure>
+</div>
+<!-- <div>
+<img src="figures/BustardWu_Fig12.png" width="700" class="center"/>
+</div> -->
 <p>While it’s too early to try to apply such a methodology (flatten power, train a network, etc.) to real astrophysical observations, for reasons outlined in the next section, such a strong indicator is a positive sign that streaming transport leads to unique, non-spectral imprints on the surrounding gas. In Bustard and Wu 2024, we speculate that this signature is related to a transport-dependent change in the mixture of solenoidal vs compressive fluid motions, as found in <span class="citation" data-cites="BustardOh2023_arxiv">(<a href="#ref-BustardOh2023_arxiv" role="doc-biblioref">Bustard and Oh 2023</a>)</span>.</p>
 </section>
 </section>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
 <p>While this exploratory study leads to highly accurate predictions on simulation data, can we apply these trained networks to real astronomical observations? Not quite.</p>
-<p>In our paper, we briefly discuss three limitations to the simulations themselves that prohibit this: incomplete physics, limited parameter coverage, and issues of convergence make even these state-of-the-art simulations only an idealized representation of reality. Furthermore, there are observational uncertainties that make this endeavor difficult. We show, for instance, that our trained network does not accurately predict classes if images are created by projecting over many cells in the x-direction. This effect, related to the optical depth of an image, is highly environment-dependent and uncertain, and this issue of “domain shift”, i.e.&nbsp;applying a model trained on one dataset to another, is a prevalent issue in machine learning and an active area of research <span class="citation" data-cites="ciprijanovic_deepastrouda">(<a href="#ref-ciprijanovic_deepastrouda" role="doc-biblioref">Ćiprijanović et al. 2023</a>)</span>.</p>
+<p>First, there are several limitations that make even these state-of-the-art simulations only an idealized representation of reality: * Incomplete physics – for instance, these simulations use an isothermal (constant temperature) equation of state rather than an adiabatic equation of state with more realistic but environmentally dependent radiative cooling. * Limited parameter coverage – a number of simulation input parameters are held fixed, including the magnetization of the gas and the turbulent stirring rate. * Issues of convergence – <span class="citation" data-cites="BustardOh2023_arxiv">(<a href="#ref-BustardOh2023_arxiv" role="doc-biblioref">Bustard and Oh 2023</a>)</span> conducted a convergence study, showing that the main transport-dependent trends are not sensitive to spatial resolution; however, increasing resolution always leads to more small-scale power, since the inertial range of simulated turbulence dissipates at scales of order 20-30x the spatial resolution.</p>
+<p>Furthermore, there are observational uncertainties that make this endeavor difficult. We show, for instance, that our trained network does not accurately predict classes if images are created by projecting over many cells in the x-direction. This issue of “domain shift”, i.e.&nbsp;applying a model trained on one dataset to another, is a prevalent issue in machine learning and an active area of research <span class="citation" data-cites="ciprijanovic_deepastrouda">(<a href="#ref-ciprijanovic_deepastrouda" role="doc-biblioref">Ćiprijanović et al. 2023</a>)</span>. It is possible to increase our accuracy by training a model specifically on images with the same projection depth as in the validation set, thereby bypassing this model misspecification problem. However, this is unlikely to be helpful in real observations of turbulent gas clouds, which are subject to uncertain distance measurements <span class="citation" data-cites="Green+2019">(<a href="#ref-Green+2019" role="doc-biblioref">Green et al. 2019</a>)</span>. Moreover, we do not have strong constraints on how far we can see into the gaseous structure (i.e.&nbsp;the optical depth), which means that we cannot estimate <em>a priori</em> the number of turbulent eddies that we would expect to see in the line-of-sight direction and, therefore, cannot determine an appropriate simulation projection depth to compare to.</p>
 <p>Overall, our work represents a novel demonstration of deep CNNs learning salient imprints of cosmic rays on surrounding gas from simulations of astrophysical turbulence, and our interpretability exercises strengthen prior theories of this cosmic ray transport-dependent impact, reveal new insights, and help build intuition.</p>
 </section>
 <section id="references" class="level2">
@@ -438,6 +449,9 @@ Cheng, Sihao, Rudy Morel, Erwan Allys, Brice Ménard, and Stéphane Mallat. 2023
 </div>
 <div id="ref-Farber2018" class="csl-entry" role="listitem">
 Farber, R., M. Ruszkowski, H. -Y. K. Yang, and E. G. Zweibel. 2018. <span>“<span class="nocase">Impact of Cosmic-Ray Transport on Galactic Winds</span>”</span> 856 (2): 112. <a href="https://doi.org/10.3847/1538-4357/aab26d">https://doi.org/10.3847/1538-4357/aab26d</a>.
+</div>
+<div id="ref-Green+2019" class="csl-entry" role="listitem">
+Green, Gregory M., Edward Schlafly, Catherine Zucker, Joshua S. Speagle, and Douglas Finkbeiner. 2019. <span>“<span class="nocase">A 3D Dust Map Based on Gaia, Pan-STARRS 1, and 2MASS</span>”</span> 887 (1): 93. <a href="https://doi.org/10.3847/1538-4357/ab5362">https://doi.org/10.3847/1538-4357/ab5362</a>.
 </div>
 <div id="ref-Heintz2020" class="csl-entry" role="listitem">
 Heintz, Evan, Chad Bustard, and Ellen G. Zweibel. 2020. <span>“<span class="nocase">The Role of the Parker Instability in Structuring the Interstellar Medium</span>”</span> 891 (2): 157. <a href="https://doi.org/10.3847/1538-4357/ab7453">https://doi.org/10.3847/1538-4357/ab7453</a>.
