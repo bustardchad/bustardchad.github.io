@@ -1,11 +1,11 @@
 ---
 title: Resume
 description-meta: "Chad Bustard's Resume"
-date: 2023-09-12
+date: 2024-03-06
 published-title: resume last updated
 engine: knitr 
 cv:
-  pdf: "Bustard_Resume.pdf"
+  pdf: "Resume_ChadBustard.pdf"
 ---
 
 ```{css echo=FALSE}
